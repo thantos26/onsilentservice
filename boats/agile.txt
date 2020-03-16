@@ -1,0 +1,7 @@
+ID: 0
+Name: Agile
+Class: astute
+location (x): 0
+location (y): 0
+depth: 2
+facing: 090

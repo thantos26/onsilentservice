@@ -1,0 +1,5 @@
+Type: Biological
+x: 100
+y: 50
+Description: The calming sound of whale sounds, good grief that's loud
+Magnitude: 200

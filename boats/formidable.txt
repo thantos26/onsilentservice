@@ -1,0 +1,7 @@
+ID: 1
+Name: Formidable
+Class: Vanguard SSN
+location (x): 0
+location (y): 0
+depth: 3
+facing: 045

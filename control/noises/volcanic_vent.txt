@@ -1,0 +1,5 @@
+Type: Geological
+x: 0
+y: 0
+Description: Cavitation caused by geothermal activity, possibly volcanic vents
+Magnitude: 20

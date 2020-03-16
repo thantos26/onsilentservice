@@ -1,0 +1,16 @@
+class: Astute
+ballast: 3
+compressed_air: 4
+power_shift: 5
+Turn_rate: 135
+Emergency_turn: 60
+Max_rated_depth: 400
+Bubble: 200
+speeds:
+	stopped: 0km 0 0dB
+	1/4 ahead: 2km 1 10dB
+	1/2 ahead: 5km 2 12dB
+	full ahead: 10km 6 14dB
+power:
+	5 0dB
+	15 10dB

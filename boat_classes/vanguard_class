@@ -1,0 +1,15 @@
+class: Vanguard
+ballast: 4
+compressed_air: 5
+power_shift: 6
+Turn_rate: 90
+Emergency_turn: 45
+Max_rated_depth: 400
+Bubble: 100
+speeds:
+	stopped: 0km 0 0dB
+	1/2 ahead: 4km 2 12dB
+	full ahead: 8km 6 14dB
+power:
+	5 0dB
+	20 10dB

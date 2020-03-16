@@ -1,0 +1,7 @@
+ID: 1
+Name: Vigilant
+Class: vanguard
+location (x): 40
+location (y): 20
+depth: 2
+facing: 090
