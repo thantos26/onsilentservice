@@ -11,7 +11,6 @@
 
 #include "mapping.h"
 
-
 struct sound_t {
     std::string description;
     int magnitude;
@@ -33,6 +32,8 @@ struct power_threshold_t {
 };
 
 class noise_source_t;
+
+float add_log(float a, float b);
 
 class submarine_t {
     int id;

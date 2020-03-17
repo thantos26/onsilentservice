@@ -11,6 +11,10 @@
 
 using namespace std;
 
+inline float add_log(float a, float b) {
+    return log10(pow(10, a) + pow(10, b));
+}
+
 void submarine_t::set_class_data(const string &file_path) {
     auto handle = file_handle_t(file_path, file_handle_t::io_t::IN);
     string input_buffer = handle.parse_string_line();
@@ -125,25 +129,17 @@ std::pair<float, float> submarine_t::move(float distance, int direction, int bub
 
     this->direction = direction;
 
-    speed_setting_t speed = speeds[0];
-    for (int i = 1; i < speeds.size(); i++) {
-        if (distance < speeds[i].distance) {
-            break;
-        }
-        speed = speeds[i];
-    }
-
-    sound.magnitude = speed.noise; // TODO add in reactor powering
+    sound.magnitude = add_log(speed_setting.noise, get_power_setting(power).noise);
 
     auto course_rad = M_PI * ((float) direction) / 180.0;
-    auto locx_n = locx + distance * sin(course_rad) / horizontal_scale;
-    auto locy_n = locy + distance * cos(course_rad) / horizontal_scale;
+    locx = locx + distance * sin(course_rad) / horizontal_scale;
+    locy = locy + distance * cos(course_rad) / horizontal_scale;
 
-    noise->x = locx_n;
-    noise->y = locy_n;
+    noise->x = locx;
+    noise->y = locy;
 
 
-    return {locx = locx_n, locy = locy_n};
+    return {locx, locy};
 }
 
 int submarine_t::get_flooded_compartments() {

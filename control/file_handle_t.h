@@ -9,7 +9,7 @@
 #include <vector>
 
 bool is_alphabetic(char symbol);
-inline bool is_numeric(char symbol);
+bool is_numeric(char symbol);
 bool is_alphanumeric(char symbol);
 
 struct file_handle_t {
