@@ -72,6 +72,15 @@ std::pair<float, float> submarine_t::move(float distance, int direction, int bub
 
     // Checks the bounds of input data:
 
+    // Check bounds of power
+    while (get_power_setting(power).generated < power) {
+        cerr << "Submarine cannot produce " << power << " power, maximum is " << power_thresholds.back().generated
+             << endl;
+        if (terminal::query("Are you sure? ") == "y")
+            break;
+        power = stoi(terminal::query("New power: "));
+    }
+
     // Bounds check for course
     while (abs(direction) > max_turn) {
         cerr << "Submarine " << id << "-" << name << " ordered to move: " << to_string(direction) <<
@@ -79,18 +88,33 @@ std::pair<float, float> submarine_t::move(float distance, int direction, int bub
 
         if (terminal::query("Are you sure? ") == "y")
             break;
-        direction = stoi(terminal::query("New distance: "));
+        direction = stoi(terminal::query("New bearing: "));
     }
 
     // Bounds check for course speed
     while (distance > speeds.back().distance) {
+
         cerr << "Submarine " << id << "-" << name << " ordered to move: " << to_string((int) distance) <<
              "m, can only make " << to_string(speeds.back().distance) << 'm' << endl;
 
         if (terminal::query("Are you sure? ") == "y")
             break;
         distance = stoi(terminal::query("New distance: "));
+
+
     }
+
+    // Check speeds against power bounds
+    speed_setting_t speed_setting = get_speed_setting(distance);
+    while (speed_setting.power > power) {
+        cerr << "Submarine " << id << "-" << name << " ordered to move: " << to_string((int) distance)
+             << "m, impossible under " << power << " power" << endl;
+        if (terminal::query("Are you sure? ") == "y")
+            break;
+        distance = stoi(terminal::query("New distance: "));
+        speed_setting = get_speed_setting(distance);
+    }
+
 
     // Make changes
     depth += (get_flooded_compartments() - bubble);
@@ -160,6 +184,21 @@ float submarine_t::get_speed() const {
 
 sound_t submarine_t::get_sound() const {
     return sound;
+}
+
+const power_threshold_t &submarine_t::get_power_setting(const int power) const {
+    for (auto it = power_thresholds.begin(); it != power_thresholds.end(); it++)
+        if (it->generated > power)
+            return *it;
+    return power_thresholds.back();
+}
+
+[[nodiscard]] const speed_setting_t &submarine_t::get_speed_setting(const float distance) const {
+    for (auto &speed_record : speeds) {
+        if (speed_record.distance >= distance)
+            return speed_record;
+    }
+    return speeds.back();
 }
 
 speed_setting_t speed_setting_t::parse_from_line(const std::string &line) {

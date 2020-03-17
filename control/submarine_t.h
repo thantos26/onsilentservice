@@ -60,6 +60,9 @@ class submarine_t {
     int get_flooded_compartments();
     void set_class_data(const std::string & file_path);
 
+    [[nodiscard]] const power_threshold_t& get_power_setting(int power) const;
+    [[nodiscard]] const speed_setting_t & get_speed_setting(float distance) const;
+
 public:
     std::shared_ptr<noise_source_t> noise;
 

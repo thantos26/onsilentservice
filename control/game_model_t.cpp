@@ -4,6 +4,7 @@
 
 #include "terminal.h"
 #include "game_model_t.h"
+#include "file_handle_t.h"
 #include <cmath>
 #include <algorithm>
 #include <iostream>
@@ -21,7 +22,10 @@ void game_model_t::enter_movements() {
         submarine.second.move(
                 stof(terminal::query("\tdistance:")),
                 stoi(terminal::query("\tcourse:")),
-                stoi(terminal::query("\tascent:")), 0);
+                stoi(terminal::query("\tascent:")),
+                stoi(terminal::query("\tpower:"))
+
+        );
 
         // TODO collision checks
 
@@ -110,4 +114,16 @@ std::string game_model_t::generate_passive_sonar_report(int sub_id) {
     }
 
     return report;
+}
+
+void game_model_t::export_report(const std::string &file_path, int sub_id) {
+    auto &submarine = boats[sub_id];
+
+    file_handle_t report_handle(file_path + to_string(sub_id) + 't' + to_string(game_time), file_handle_t::io_t::OUT);
+
+    report_handle.out_handle << "Sensors report for submarine: " << submarine.getName() << endl << endl;
+
+    report_handle.out_handle << "Passive sonar report:" << endl;
+    report_handle.out_handle << generate_passive_sonar_report(sub_id);
+
 }

@@ -36,6 +36,8 @@ public:
     void enter_movements();
     [[nodiscard]] std::string generate_passive_sonar_report(int sub_id);
 
+    void export_report(const std::string &file_path, int sub_id);
+
 };
 
 

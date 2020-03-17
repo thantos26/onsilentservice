@@ -13,8 +13,8 @@ int main() {
     model.import_submarine("../boats/agile.txt");
     model.import_submarine("../boats/vigilant.txt");
     //model.import_submarine("../boats/formidable.txt");
-    model.import_noise("../noises/whales.txt");
-    model.import_noise("../noises/volcanic_vent.txt");
+    model.import_noise("../control/noises/whales.txt");
+    model.import_noise("../control/noises/volcanic_vent.txt");
 
     model.export_submarine(0, "vigilant_copy.txt");
 
